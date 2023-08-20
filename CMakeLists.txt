@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 20) # Requires C11 standard
 add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(${PROJECT_NAME} raylib)
-
+include_directories(${PROJECT_NAME} include)
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
