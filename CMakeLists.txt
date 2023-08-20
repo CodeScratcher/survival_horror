@@ -5,10 +5,11 @@ find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
 
 set(CMAKE_CXX_STANDARD 20) # Requires C11 standard
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp player.cpp)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 include_directories(${PROJECT_NAME} include)
+include_directories(${PROJECT_NAME} header)
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
