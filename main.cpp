@@ -21,7 +21,8 @@ int main() {
     camera.zoom = 2.0f;
     
     world.walls.insert({std::make_pair(3, 5), true});
-    
+    world.walls.insert({std::make_pair(4, 5), true});
+    world.walls.insert({std::make_pair(3, 4), true});
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
