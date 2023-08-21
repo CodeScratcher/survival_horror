@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "player.hpp"
 #include "world.hpp"
+#include "ray.hpp"
 #include <iostream>
 
 int main() {
@@ -14,8 +15,8 @@ int main() {
     World world = World();
     
     Camera2D camera = { 0 };
-    camera.target = (Vector2){ player.x, player.y};
-    camera.offset = (Vector2){ screenWidth/2.0f, screenHeight/2.0f };
+    camera.target = (Vector2){player.x, player.y};
+    camera.offset = (Vector2){screenWidth/2.0f, screenHeight/2.0f};
     camera.rotation = 0.0f;
     camera.zoom = 2.0f;
     
@@ -26,37 +27,39 @@ int main() {
 
     // Main game loop
     while (!WindowShouldClose()) {   // Detect window close button or ESC key
-		std::cout << "1: " << player.collides(world) << "\n";
         if (IsKeyDown(KEY_LEFT)) {
             player.x -= 5;
             if (player.collides(world)) {
 				player.x = (player.x + TILE_SIZE) / TILE_SIZE * TILE_SIZE;
 			}
         }
-        std::cout << "2: " << player.collides(world) << "\n";
         if (IsKeyDown(KEY_RIGHT)) {
             player.x += 5;
             if (player.collides(world)) {
 				player.x = player.x / TILE_SIZE * TILE_SIZE;
 			}
         }
-        std::cout << "3: " << player.collides(world) << "\n";
         if (IsKeyDown(KEY_UP)) {
             player.y -= 5;
             if (player.collides(world)) {
 				player.y = (player.y + TILE_SIZE) / TILE_SIZE * TILE_SIZE;
 			}
         }
-        std::cout << "4: " << player.collides(world) << "\n";
         if (IsKeyDown(KEY_DOWN)) {
             player.y += 5;
             if (player.collides(world)) {
 				player.y = player.y / TILE_SIZE * TILE_SIZE;
 			}
         }
+  
         
-        camera.target = (Vector2){ player.x, player.y};
-
+        camera.target = (Vector2){player.x, player.y};
+		
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			Vector2 pos = GetScreenToWorld2D(GetMousePosition(), camera);
+			shoot(world, Vector2 {player.x + SIZE / 2, player.y + SIZE / 2}, pos);
+		}
+		
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();

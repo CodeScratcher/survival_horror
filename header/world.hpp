@@ -9,3 +9,5 @@ public:
 	
 	World();
 };
+
+bool exists_and_true(std::map<std::pair<int, int>, bool> map, std::pair<int, int> key);
