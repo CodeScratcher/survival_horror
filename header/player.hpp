@@ -3,9 +3,8 @@
 #include "item.hpp"
 #include "world.hpp"
 #include "raylib-cpp.hpp"
+
 const int SIZE = 16;
-
-
 
 class Player {
 public:

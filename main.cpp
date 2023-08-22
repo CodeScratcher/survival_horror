@@ -23,6 +23,9 @@ int main() {
     world.walls.insert({std::make_pair(3, 5), true});
     world.walls.insert({std::make_pair(4, 5), true});
     world.walls.insert({std::make_pair(3, 4), true});
+    
+    world.enemies.push_back(Enemy(64, 64));
+    
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
@@ -53,13 +56,17 @@ int main() {
 			}
         }
   
-        
+        for (Enemy& i : world.enemies) {
+			i.update(player, world);
+		}
         camera.target = (Vector2){player.x, player.y};
 		
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			Vector2 pos = GetScreenToWorld2D(GetMousePosition(), camera);
 			shoot(world, Vector2 {player.x + SIZE / 2, player.y + SIZE / 2}, pos);
 		}
+		
+		
 		
         // Draw
         //----------------------------------------------------------------------------------
@@ -76,6 +83,10 @@ int main() {
 						std::pair<int, int> coords = walls.first;
 						DrawRectangle(coords.first * TILE_SIZE, coords.second * TILE_SIZE, TILE_SIZE, TILE_SIZE, RED);
 					}
+				}
+				
+				for (Enemy i : world.enemies) {
+					DrawRectangle(i.x, i.y, SIZE, SIZE, GREEN);
 				}
 			}
 			EndMode2D();
