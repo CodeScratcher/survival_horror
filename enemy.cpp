@@ -1,5 +1,7 @@
+#include <iostream>
 #include "world.hpp"
 #include "player.hpp"
+#include "raylib.h"
 
 Enemy::Enemy(int x, int y) {
     this->x = x;
@@ -7,7 +9,7 @@ Enemy::Enemy(int x, int y) {
     this->hp = 100;
 }
 
-void Enemy::update(Player player, World world) {
+void Enemy::update(Player& player, World world) {
     if (player.x < x) {
         x -= 1;
         if (collides(world)) {
@@ -31,6 +33,12 @@ void Enemy::update(Player player, World world) {
         if (collides(world)) {
             y = y / TILE_SIZE * TILE_SIZE;
         }
+    }
+    
+    if (CheckCollisionRecs(Rectangle {player.x, player.y, SIZE, SIZE}, Rectangle {x, y, ENEMY_SIZE, ENEMY_SIZE}) && player.iframes < 0) {
+        player.hp -= 5;
+        player.iframes = 5;
+        std::cout << player.hp << " HP \n";
     }
 }
 

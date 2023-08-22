@@ -11,6 +11,6 @@ public:
     int y;
     
     Enemy(int x, int y);
-    void update(Player player, World world);
+    void update(Player& player, World world);
     bool collides(World world);
 };

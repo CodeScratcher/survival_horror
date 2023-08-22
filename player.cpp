@@ -6,6 +6,8 @@ Player::Player() {
     y = 0;
     hp = 100;
     stress = 100;
+    iframes = 5;
+    cooldown = 0;
 }
 
 

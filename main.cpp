@@ -61,11 +61,14 @@ int main() {
 		}
         camera.target = (Vector2){player.x, player.y};
 		
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && player.cooldown < 0) {
 			Vector2 pos = GetScreenToWorld2D(GetMousePosition(), camera);
-			shoot(world, Vector2 {player.x + SIZE / 2, player.y + SIZE / 2}, pos);
+			shoot(player, world, Vector2 {player.x + SIZE / 2, player.y + SIZE / 2}, pos);
 		}
 		
+		std::cout << player.cooldown << "\n";
+		player.iframes -= 1;
+		player.cooldown -= 1;
 		
 		
         // Draw

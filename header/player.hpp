@@ -10,6 +10,7 @@ class Player {
 public:
     int hp, stress;
     int x, y;
+    int iframes, cooldown;
 
     std::vector<Item> inventory;
 
