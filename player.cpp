@@ -5,7 +5,7 @@ Player::Player() {
     x = 0;
     y = 0;
     hp = 100;
-    stress = 100;
+    stress = 100.0f;
     iframes = 5;
     cooldown = 0;
 }

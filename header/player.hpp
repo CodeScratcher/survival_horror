@@ -8,7 +8,8 @@ const int SIZE = 16;
 
 class Player {
 public:
-    int hp, stress;
+    int hp;
+    float stress;
     int x, y;
     int iframes, cooldown;
 

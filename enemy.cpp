@@ -35,7 +35,7 @@ void Enemy::update(Player& player, World world) {
         }
     }
     
-    if (CheckCollisionRecs(Rectangle {player.x, player.y, SIZE, SIZE}, Rectangle {x, y, ENEMY_SIZE, ENEMY_SIZE}) && player.iframes < 0) {
+    if (CheckCollisionRecs(Rectangle {(float)player.x, (float)player.y, SIZE, SIZE}, Rectangle {(float)x, (float)y, ENEMY_SIZE, ENEMY_SIZE}) && player.iframes < 0) {
         player.hp -= 5;
         player.iframes = 5;
         std::cout << player.hp << " HP \n";
