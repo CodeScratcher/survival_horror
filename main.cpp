@@ -118,6 +118,11 @@ int main() {
             DrawRectangle(0, 0, playerScreen.x - MAX_DISTANCE, screenHeight, BLACK);
             DrawRectangle(playerScreen.x + MAX_DISTANCE, 0, screenWidth, screenHeight, BLACK);
             
+            DrawRectangle(0, 0, 300, 50, RAYWHITE);
+            DrawRectangle(0, 0, player.hp * 3, 50, GREEN);
+
+            DrawRectangle(0, 75, 300, 50, RAYWHITE);
+            DrawRectangle(0, 75, (int)player.stress * 3, 50, BLUE);
         }
         EndDrawing();
         //----------------------------------------------------------------------------------
