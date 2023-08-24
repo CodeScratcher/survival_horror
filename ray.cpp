@@ -29,13 +29,22 @@ void shoot(Player& player, World& world, Vector2 src, Vector2 dest) {
 }
 
 bool visible(World world, Vector2 src, Vector2 dest, Vector2 mouse, Camera2D camera) {
+    Vector2 direction1 = Vector2Subtract(dest, src);
+    Vector2 direction2 = Vector2Subtract(mouse, src);
 
-    if (Vector2Distance(src, dest) > MIN_DISTANCE && fabs(
-        Vector2Angle(
-            Vector2Normalize(Vector2Subtract(dest, src)),
-            Vector2Normalize(Vector2Subtract(mouse, src))
-        ) * RAD2DEG
-    ) > MAX_ANGLE) return false;
+    direction1 = Vector2Normalize(direction1);
+    direction2 = Vector2Normalize(direction2);
+
+    float dotProduct = Vector2DotProduct(direction1, direction2);
+    
+    dotProduct = fmaxf(-1.0f, fminf(1.0f, dotProduct));
+
+    float angleRad = acosf(dotProduct);
+
+    // Convert radians to degrees
+    float angleDeg = angleRad * (180.0f / PI);
+    
+    if (Vector2Distance(src, dest) > MIN_DISTANCE && angleDeg > MAX_ANGLE) return false;
     if (Vector2Distance(src, dest) > MAX_DISTANCE) return false;
     for (int i = 0; i < (int)RAY_DENSITY; i++) {
         Vector2 pos = GetScreenToWorld2D(Vector2Lerp(src, dest, (float)i / RAY_DENSITY), camera);
