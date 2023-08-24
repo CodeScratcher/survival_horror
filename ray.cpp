@@ -25,9 +25,17 @@ void shoot(Player& player, World& world, Vector2 src, Vector2 dest) {
             }
         }
     }
+    player.cooldown = 60;
 }
 
-bool visible(World world, Vector2 src, Vector2 dest, Camera2D camera) {
+bool visible(World world, Vector2 src, Vector2 dest, Vector2 mouse, Camera2D camera) {
+
+    if (Vector2Distance(src, dest) > MIN_DISTANCE && fabs(
+        Vector2Angle(
+            Vector2Normalize(Vector2Subtract(dest, src)),
+            Vector2Normalize(Vector2Subtract(mouse, src))
+        ) * RAD2DEG
+    ) > MAX_ANGLE) return false;
     if (Vector2Distance(src, dest) > MAX_DISTANCE) return false;
     for (int i = 0; i < (int)RAY_DENSITY; i++) {
         Vector2 pos = GetScreenToWorld2D(Vector2Lerp(src, dest, (float)i / RAY_DENSITY), camera);

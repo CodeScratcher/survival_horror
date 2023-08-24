@@ -72,10 +72,11 @@ int main() {
 
         Vector2 playerScreen = GetWorldToScreen2D(Vector2 {(float)player.x + SIZE / 2, (float)player.y + SIZE / 2}, camera);
         
+        Vector2 mouse = GetMousePosition();
 		
 		for (Enemy enemy : world.enemies) {
             Vector2 enemyScreen = GetWorldToScreen2D(Vector2 {(float)enemy.x + ENEMY_SIZE / 2, (float)enemy.y + ENEMY_SIZE / 2}, camera);
-            if (visible(world, playerScreen, enemyScreen, camera)) {
+            if (visible(world, playerScreen, enemyScreen, mouse, camera)) {
                 player.stress -= 5.0f / 60.0f;
                 std::cout << "STRESS: " << player.stress << "\n";
             }
@@ -103,13 +104,14 @@ int main() {
 			}
 			EndMode2D();
             
-            for (int x = playerScreen.x - MAX_DISTANCE; x < playerScreen.x + MAX_DISTANCE; x += 8) {
-                for (int y = playerScreen.y - MAX_DISTANCE; y < playerScreen.y + MAX_DISTANCE; y += 8) {
+            for (int x = playerScreen.x - MAX_DISTANCE; x < playerScreen.x + MAX_DISTANCE; x += 16) {
+                for (int y = playerScreen.y - MAX_DISTANCE; y < playerScreen.y + MAX_DISTANCE; y += 16) {
                     if (!visible(world, 
                             playerScreen, 
                             Vector2 {(float)x, (float)y}, 
+                            mouse,
                             camera)) {
-                        DrawRectangle(x, y, 8, 8, BLACK);
+                        DrawRectangle(x, y, 16, 16, BLACK);
                     }
                 }
             }
